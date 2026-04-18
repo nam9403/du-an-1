@@ -1,0 +1,2 @@
+# Mỗi dòng một mã (HOSE/HNX/UPCOM) bổ sung ngoài stock_metadata.json — ví dụ:
+# AAA

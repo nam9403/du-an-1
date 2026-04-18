@@ -1,0 +1,109 @@
+{
+  "summary": {
+    "symbols_total": 22,
+    "batches": 4,
+    "batch_size": 6,
+    "range": "2y",
+    "consensus_count": 3,
+    "consensus_ratio": 0.75,
+    "mean_batch_objective": 55.10836008878474
+  },
+  "consensus": {
+    "profile": "defensive",
+    "strong_buy_mos_min": 8.0,
+    "max_peg_for_buy": 1.1,
+    "watch_buy_mos_min": 8.0
+  },
+  "batch_reports": [
+    {
+      "batch_index": 1,
+      "symbols": [
+        "ACB",
+        "BID",
+        "BVH",
+        "CTG",
+        "DHG",
+        "FPT"
+      ],
+      "best": {
+        "profile": "defensive",
+        "strong_buy_mos_min": 8.0,
+        "max_peg_for_buy": 1.1,
+        "watch_buy_mos_min": 0.0,
+        "symbols_used": 5,
+        "avg_legend_alpha_vs_legacy_pct": 10.708979647575653,
+        "avg_legend_max_dd_pct": 16.278531142412383,
+        "objective": 8.267199976213796,
+        "evaluated": 108
+      },
+      "symbols_with_price_history": 5
+    },
+    {
+      "batch_index": 2,
+      "symbols": [
+        "GAS",
+        "HPG",
+        "IMP",
+        "KBC",
+        "MBB",
+        "MIG"
+      ],
+      "best": {
+        "profile": "defensive",
+        "strong_buy_mos_min": 8.0,
+        "max_peg_for_buy": 1.1,
+        "watch_buy_mos_min": 5.0,
+        "symbols_used": 6,
+        "avg_legend_alpha_vs_legacy_pct": 13.653556785947167,
+        "avg_legend_max_dd_pct": 22.541864470740393,
+        "objective": 10.272277115336108,
+        "evaluated": 108
+      },
+      "symbols_with_price_history": 6
+    },
+    {
+      "batch_index": 3,
+      "symbols": [
+        "MWG",
+        "PLX",
+        "SSI",
+        "SZC",
+        "TCB",
+        "VCB"
+      ],
+      "best": {
+        "profile": "defensive",
+        "strong_buy_mos_min": 8.0,
+        "max_peg_for_buy": 1.1,
+        "watch_buy_mos_min": 0.0,
+        "symbols_used": 6,
+        "avg_legend_alpha_vs_legacy_pct": 19.748939509654793,
+        "avg_legend_max_dd_pct": 30.20073410927567,
+        "objective": 15.218829393263443,
+        "evaluated": 108
+      },
+      "symbols_with_price_history": 6
+    },
+    {
+      "batch_index": 4,
+      "symbols": [
+        "VHM",
+        "VIC",
+        "VND",
+        "VNM"
+      ],
+      "best": {
+        "profile": "defensive",
+        "strong_buy_mos_min": 8.0,
+        "max_peg_for_buy": 1.1,
+        "watch_buy_mos_min": 8.0,
+        "symbols_used": 4,
+        "avg_legend_alpha_vs_legacy_pct": 191.15932369663736,
+        "avg_legend_max_dd_pct": 29.894598842078167,
+        "objective": 186.67513387032562,
+        "evaluated": 108
+      },
+      "symbols_with_price_history": 4
+    }
+  ]
+}

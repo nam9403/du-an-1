@@ -1,0 +1,105 @@
+{
+  "best": {
+    "profile": "balanced",
+    "strong_buy_mos_min": 18.0,
+    "max_peg_for_buy": 1.6,
+    "symbols_used": 9,
+    "avg_legend_alpha_vs_legacy_pct": -5.564475249586293,
+    "avg_legend_max_dd_pct": 0.0,
+    "objective": -5.564475249586293,
+    "evaluated": 63
+  },
+  "top10": [
+    {
+      "profile": "balanced",
+      "strong_buy_mos_min": 18.0,
+      "max_peg_for_buy": 1.6,
+      "symbols_used": 9,
+      "avg_legend_alpha_vs_legacy_pct": -5.564475249586293,
+      "avg_legend_max_dd_pct": 0.0,
+      "objective": -5.564475249586293
+    },
+    {
+      "profile": "balanced",
+      "strong_buy_mos_min": 22.0,
+      "max_peg_for_buy": 1.1,
+      "symbols_used": 9,
+      "avg_legend_alpha_vs_legacy_pct": -5.728722753177709,
+      "avg_legend_max_dd_pct": 0.0,
+      "objective": -5.728722753177709
+    },
+    {
+      "profile": "balanced",
+      "strong_buy_mos_min": 26.0,
+      "max_peg_for_buy": 1.4,
+      "symbols_used": 9,
+      "avg_legend_alpha_vs_legacy_pct": -5.728722753177709,
+      "avg_legend_max_dd_pct": 0.0,
+      "objective": -5.728722753177709
+    },
+    {
+      "profile": "balanced",
+      "strong_buy_mos_min": 18.0,
+      "max_peg_for_buy": 1.4,
+      "symbols_used": 8,
+      "avg_legend_alpha_vs_legacy_pct": -6.444813097324922,
+      "avg_legend_max_dd_pct": 0.0,
+      "objective": -6.444813097324922
+    },
+    {
+      "profile": "defensive",
+      "strong_buy_mos_min": 10.0,
+      "max_peg_for_buy": 1.1,
+      "symbols_used": 10,
+      "avg_legend_alpha_vs_legacy_pct": -10.1638782024876,
+      "avg_legend_max_dd_pct": 0.0,
+      "objective": -10.1638782024876
+    },
+    {
+      "profile": "defensive",
+      "strong_buy_mos_min": 10.0,
+      "max_peg_for_buy": 1.25,
+      "symbols_used": 10,
+      "avg_legend_alpha_vs_legacy_pct": -10.1638782024876,
+      "avg_legend_max_dd_pct": 0.0,
+      "objective": -10.1638782024876
+    },
+    {
+      "profile": "defensive",
+      "strong_buy_mos_min": 10.0,
+      "max_peg_for_buy": 1.4,
+      "symbols_used": 10,
+      "avg_legend_alpha_vs_legacy_pct": -10.1638782024876,
+      "avg_legend_max_dd_pct": 0.0,
+      "objective": -10.1638782024876
+    },
+    {
+      "profile": "defensive",
+      "strong_buy_mos_min": 10.0,
+      "max_peg_for_buy": 1.6,
+      "symbols_used": 10,
+      "avg_legend_alpha_vs_legacy_pct": -10.1638782024876,
+      "avg_legend_max_dd_pct": 0.0,
+      "objective": -10.1638782024876
+    },
+    {
+      "profile": "defensive",
+      "strong_buy_mos_min": 14.0,
+      "max_peg_for_buy": 1.1,
+      "symbols_used": 10,
+      "avg_legend_alpha_vs_legacy_pct": -10.1638782024876,
+      "avg_legend_max_dd_pct": 0.0,
+      "objective": -10.1638782024876
+    },
+    {
+      "profile": "defensive",
+      "strong_buy_mos_min": 14.0,
+      "max_peg_for_buy": 1.25,
+      "symbols_used": 10,
+      "avg_legend_alpha_vs_legacy_pct": -10.1638782024876,
+      "avg_legend_max_dd_pct": 0.0,
+      "objective": -10.1638782024876
+    }
+  ],
+  "universe_size": 10
+}

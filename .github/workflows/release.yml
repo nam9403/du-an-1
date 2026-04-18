@@ -1,0 +1,47 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  verify-and-package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
+
+      - name: Verify tests
+        run: python -m pytest -q
+
+      - name: Verify no exposed secrets
+        run: python scripts/check_secrets.py
+
+      - name: Verify health (offline-safe)
+        run: python scripts/health_check.py
+
+      - name: Build source package
+        run: |
+          mkdir -p dist
+          tar --exclude=.git --exclude=.github --exclude=.venv -czf dist/source-${GITHUB_REF_NAME}.tar.gz .
+
+      - name: Upload release artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: source-${{ github.ref_name }}
+          path: dist/source-${{ github.ref_name }}.tar.gz
+          retention-days: 14
+

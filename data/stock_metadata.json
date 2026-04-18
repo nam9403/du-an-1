@@ -1,0 +1,102 @@
+{
+  "VNM": {
+    "industry_vi": "Thực phẩm, đồ uống và thuốc lá — Tiêu dùng thiết yếu",
+    "industry_cluster": "consumer_retail_transport",
+    "industry_subtype": "consumer_staples"
+  },
+  "FPT": {
+    "industry_vi": "Công nghệ và thông tin",
+    "industry_cluster": "tech_telecom",
+    "industry_subtype": "technology_services"
+  },
+  "MWG": {
+    "industry_vi": "Bán lẻ — Tiêu dùng",
+    "industry_cluster": "consumer_retail_transport",
+    "industry_subtype": "consumer_retail"
+  },
+  "VCB": {
+    "industry_vi": "Ngân hàng",
+    "industry_cluster": "financial",
+    "industry_subtype": "bank"
+  },
+  "BID": {
+    "industry_vi": "Ngân hàng",
+    "industry_cluster": "financial",
+    "industry_subtype": "bank"
+  },
+  "CTG": {
+    "industry_vi": "Ngân hàng",
+    "industry_cluster": "financial",
+    "industry_subtype": "bank"
+  },
+  "TCB": {
+    "industry_vi": "Ngân hàng",
+    "industry_cluster": "financial",
+    "industry_subtype": "bank"
+  },
+  "VHM": {
+    "industry_vi": "Bất động sản",
+    "industry_cluster": "real_estate",
+    "industry_subtype": "real_estate_residential"
+  },
+  "VIC": {
+    "industry_vi": "Bất động sản",
+    "industry_cluster": "real_estate",
+    "industry_subtype": "real_estate_residential"
+  },
+  "GAS": {
+    "industry_vi": "Dầu khí",
+    "industry_cluster": "energy_manufacturing",
+    "industry_subtype": "oil_gas"
+  },
+  "PLX": {
+    "industry_vi": "Dầu khí — Phân phối",
+    "industry_cluster": "energy_manufacturing",
+    "industry_subtype": "oil_gas"
+  },
+  "DHG": {
+    "industry_vi": "Dược phẩm",
+    "industry_cluster": "defensive",
+    "industry_subtype": "pharma_healthcare"
+  },
+  "IMP": {
+    "industry_vi": "Dược phẩm",
+    "industry_cluster": "defensive",
+    "industry_subtype": "pharma_healthcare"
+  },
+  "SSI": {
+    "industry_vi": "Chứng khoán",
+    "industry_cluster": "financial",
+    "industry_subtype": "securities"
+  },
+  "VND": {
+    "industry_vi": "Chứng khoán",
+    "industry_cluster": "financial",
+    "industry_subtype": "securities"
+  },
+  "BVH": {
+    "industry_vi": "Bảo hiểm",
+    "industry_cluster": "financial",
+    "industry_subtype": "insurance"
+  },
+  "MIG": {
+    "industry_vi": "Bảo hiểm phi nhân thọ",
+    "industry_cluster": "financial",
+    "industry_subtype": "insurance"
+  },
+  "KBC": {
+    "industry_vi": "Bất động sản khu công nghiệp",
+    "industry_cluster": "real_estate",
+    "industry_subtype": "real_estate_kcn"
+  },
+  "SZC": {
+    "industry_vi": "Hạ tầng khu công nghiệp",
+    "industry_cluster": "real_estate",
+    "industry_subtype": "real_estate_kcn"
+  },
+  "HPG": {
+    "industry_vi": "Thép — Sản xuất",
+    "industry_cluster": "energy_manufacturing",
+    "industry_subtype": "steel_materials"
+  }
+}
