@@ -1,20 +1,59 @@
 @echo off
 cd /d "%~dp0"
 
-REM Fast startup profile
+set "APP_MODE=%~1"
+if /I "%APP_MODE%"=="" set "APP_MODE=dev"
+if /I "%APP_MODE%"=="--prod" set "APP_MODE=prod"
+if /I "%APP_MODE%"=="prod" goto :PROFILE_PROD
+if /I "%APP_MODE%"=="--dev" set "APP_MODE=dev"
+if /I not "%APP_MODE%"=="dev" (
+  echo [WARN] Mode khong hop le: %APP_MODE%
+  echo [INFO] Su dung: run_app.bat ^| run_app.bat dev ^| run_app.bat prod
+  set "APP_MODE=dev"
+)
+goto :PROFILE_DEV
+
+:PROFILE_DEV
+echo [INFO] App mode: DEV-FAST (uu tien toc do, cho phep stale cache)
+set "II_ENV=dev"
 set "II_SNAPSHOT_ATTACH_LIVE=0"
 set "II_READ_STALE_DISK=1"
 set "VALUE_INVESTOR_PORTAL_TIMEOUT=4"
 set "II_PORTAL_TIMEOUT_LADDER_SEC=2,4"
-REM Giá định giá khớp đóng cửa OHLCV (cùng nguồn biểu đồ). Tắt =1 nếu cần tối giản gọi mạng.
 set "II_ALIGN_PRICE_WITH_OHLCV=1"
-REM Ultra-smooth mode with accuracy guardrails (cache-first + live budget)
 set "II_OHLCV_DISK_FIRST=1"
 set "II_OHLCV_DISK_MAX_AGE_SEC=7200"
 set "II_FINANCIAL_DISK_FIRST=1"
 set "II_FINANCIAL_DISK_MAX_AGE_SEC=21600"
 set "II_FINANCIAL_MAX_PROBES=1"
 set "II_PORTAL_LIVE_BUDGET_SEC=6"
+set "II_REQUIRE_APP_SECRET_KEY=0"
+goto :PROFILE_COMMON
+
+:PROFILE_PROD
+echo [INFO] App mode: PROD-STRICT (uu tien do tin cay du lieu va bao mat)
+set "II_ENV=prod"
+set "II_SNAPSHOT_ATTACH_LIVE=1"
+set "II_READ_STALE_DISK=0"
+set "VALUE_INVESTOR_PORTAL_TIMEOUT=10"
+set "II_PORTAL_TIMEOUT_LADDER_SEC=5,10,15"
+set "II_ALIGN_PRICE_WITH_OHLCV=1"
+set "II_OHLCV_DISK_FIRST=0"
+set "II_OHLCV_DISK_MAX_AGE_SEC=900"
+set "II_FINANCIAL_DISK_FIRST=0"
+set "II_FINANCIAL_DISK_MAX_AGE_SEC=1800"
+set "II_FINANCIAL_MAX_PROBES=2"
+set "II_PORTAL_LIVE_BUDGET_SEC=15"
+set "II_REQUIRE_APP_SECRET_KEY=1"
+if "%II_APP_SECRET_KEY%"=="" (
+  echo [ERROR] II_APP_SECRET_KEY dang rong. Dat key truoc khi chay production.
+  echo [HINT] setx II_APP_SECRET_KEY "your_fernet_key_here"
+  pause
+  exit /b 1
+)
+goto :PROFILE_COMMON
+
+:PROFILE_COMMON
 REM Hybrid Legend calibrated defaults (batch calibration consensus)
 set "II_LEGEND_PROFILE=defensive"
 set "II_LEGEND_STRONG_BUY_MOS_MIN=8"

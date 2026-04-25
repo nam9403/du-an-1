@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Any
 
 import pandas as pd
-import requests
+import requests  # type: ignore
 
 from core.snapshot_disk_cache import get_cached_snapshot, get_disk_snapshot_any_age, put_snapshot
 from core.valuation import value_investing_summary
@@ -19,6 +19,22 @@ from core.valuation import value_investing_summary
 _ROOT = Path(__file__).resolve().parent.parent
 _MOCK_PATH = _ROOT / "data" / "mock_financials.json"
 _META_PATH = _ROOT / "data" / "stock_metadata.json"
+
+
+def _prefer_live_snapshot() -> bool:
+    """
+    Policy:
+    - prod/preprod/staging: ưu tiên nguồn live trước mock.
+    - dev/local: giữ hành vi ưu tiên mock để chạy nhanh/offline.
+    Có thể override bằng II_SNAPSHOT_PREFER_LIVE=1/0.
+    """
+    force = str(os.environ.get("II_SNAPSHOT_PREFER_LIVE", "") or "").strip().lower()
+    if force in ("1", "true", "yes", "on"):
+        return True
+    if force in ("0", "false", "no", "off"):
+        return False
+    env_name = str(os.environ.get("II_ENV", "dev") or "").strip().lower()
+    return env_name in ("prod", "production", "preprod", "staging", "stage")
 
 
 def _snapshot_attach_live_enabled() -> bool:
@@ -44,7 +60,8 @@ def _load_mock_json() -> dict[str, Any]:
     if not _MOCK_PATH.exists():
         return {}
     with open(_MOCK_PATH, encoding="utf-8") as f:
-        return json.load(f)
+        raw = json.load(f)
+    return raw if isinstance(raw, dict) else {}
 
 
 def _load_stock_metadata() -> dict[str, Any]:
@@ -133,26 +150,37 @@ def fetch_financial_snapshot(symbol: str, *, bypass_cache: bool = False) -> dict
     """
     sym = symbol.strip().upper()
     stale_disk: dict[str, Any] | None = None
+    prefer_live = _prefer_live_snapshot()
     if not bypass_cache:
         hot = get_cached_snapshot(sym)
         if isinstance(hot, dict):
-            return hot
+            hot_source = str(hot.get("source") or "").strip().lower()
+            # In preprod/prod, don't keep serving mock-only hot cache forever.
+            if not (prefer_live and "mock_json" in hot_source):
+                return hot
         if os.environ.get("II_READ_STALE_DISK", "1").strip().lower() in ("1", "true", "yes", "on"):
             stale_disk = get_disk_snapshot_any_age(sym)
+            if isinstance(stale_disk, dict):
+                stale_source = str(stale_disk.get("source") or "").strip().lower()
+                if prefer_live and "mock_json" in stale_source:
+                    stale_disk = None
 
     data = _load_mock_json()
+    mock_row: dict[str, Any] | None = None
     if sym in data:
-        row = dict(data[sym])
-        row["source"] = "mock_json"
-        _resolve_snapshot_market_price(row, sym)
-        _merge_stock_metadata(row, sym)
-        put_snapshot(sym, row)
-        return row
+        mock_row = dict(data[sym])
+        mock_row["source"] = "mock_json"
+
+    if not prefer_live and mock_row is not None:
+        _resolve_snapshot_market_price(mock_row, sym)
+        _merge_stock_metadata(mock_row, sym)
+        put_snapshot(sym, mock_row)
+        return mock_row
 
     try:
         from scrapers.finance_scraper import ScraperError, get_stock_data
 
-        scraped = get_stock_data(sym)
+        scraped = get_stock_data(sym, use_cache=not prefer_live)
         if stale_disk is not None and stale_disk.get("_disk_cache", {}).get("stale"):
             ttl = stale_disk.get("_disk_cache", {}).get("ttl_sec")
             scraped["snapshot_fundamentals_note_vi"] = (
@@ -164,6 +192,11 @@ def fetch_financial_snapshot(symbol: str, *, bypass_cache: bool = False) -> dict
         put_snapshot(sym, scraped)
         return scraped
     except ScraperError:
+        if mock_row is not None:
+            _resolve_snapshot_market_price(mock_row, sym)
+            _merge_stock_metadata(mock_row, sym)
+            put_snapshot(sym, mock_row)
+            return mock_row
         if stale_disk is not None:
             return stale_disk
 
@@ -174,6 +207,8 @@ def fetch_financial_snapshot(symbol: str, *, bypass_cache: bool = False) -> dict
             r = requests.get(f"{env_url.rstrip('/')}/{sym}", timeout=10)
             r.raise_for_status()
             payload = r.json()
+            if not isinstance(payload, dict):
+                payload = {}
             payload["source"] = "http_api"
             _merge_stock_metadata(payload, sym)
             put_snapshot(sym, payload)
@@ -181,6 +216,11 @@ def fetch_financial_snapshot(symbol: str, *, bypass_cache: bool = False) -> dict
         except (requests.RequestException, ValueError):
             pass
 
+    if mock_row is not None:
+        _resolve_snapshot_market_price(mock_row, sym)
+        _merge_stock_metadata(mock_row, sym)
+        put_snapshot(sym, mock_row)
+        return mock_row
     if stale_disk is not None:
         return stale_disk
     return None

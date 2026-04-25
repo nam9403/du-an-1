@@ -38,7 +38,9 @@ def main() -> int:
 
     steps = [
         [sys.executable, str(ROOT / "scripts" / "preflight_check.py")],
+        [sys.executable, str(ROOT / "scripts" / "sanitize_runtime_artifacts.py")],
         [sys.executable, str(ROOT / "scripts" / "check_secrets.py")],
+        [sys.executable, str(ROOT / "scripts" / "build_timing_dashboard.py"), "--min-samples", "1"],
         [sys.executable, "-m", "pytest", "-q"],
         [sys.executable, str(ROOT / "scripts" / "health_check.py"), "--skip-pytest"],
     ]
