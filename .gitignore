@@ -15,11 +15,16 @@ venv/
 .idea/
 .vscode/
 *.swp
+.tools/
 
 # Dự án — dữ liệu nhạy cảm / trạng thái runtime (không commit)
 data/app_state.db
 data/app_state.db-journal
 data/app_state.db-wal
+data/*.db
+data/*.db-shm
+data/*.db-wal
+data/*_test.db
 data/.app_secret.key
 data/secrets_store.json
 data/user_state.json
@@ -28,6 +33,11 @@ data/scrape_cache.json
 data/source_sla.json
 data/snapshot_disk_cache.json
 data/vn_listing_symbols.json
+data/reports/
+data/reports/logs/
+data/reports/*.json
+data/reports/*.jsonl
+data/reports/*.md
 
 # Giữ mock & metadata mẫu trong repo; nếu cần ignore toàn bộ cache:
 # data/*.json
